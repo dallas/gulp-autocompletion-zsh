@@ -20,7 +20,7 @@
 # `gulpfile.coffee` in the current directory.
 #
 function $$gulp_completion() {
-    compls=$(grep -Eo "gulp.task\(? *([\"'](([a-zA-Z0-9]|-)*)[\"'],)" gulpfile.{js,coffee} 2>/dev/null | grep -Eo "[\"'](([a-zA-Z0-9]|-)*)[\"']" | sed s/"'"//g | sort)
+    compls=$(grep -Eho "gulp\.task[^,]*" gulpfile.* 2>/dev/null | sed s/\"/\'/g | cut -d "'" -f 2 | sort)
 
     completions=(${=compls})
     compadd -- $completions
